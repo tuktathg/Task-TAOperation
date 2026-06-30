@@ -29,6 +29,7 @@ export default function TaskModal({ open, task, members, onClose, onSave, onDele
           name: s.name,
           status: s.status,
           owner: s.owner || task.owner || '',
+          start: s.start || task.start || '',
           due: s.due || task.end || '',
         }))
       );
@@ -40,7 +41,7 @@ export default function TaskModal({ open, task, members, onClose, onSave, onDele
       setPrio('Medium'); setNote(''); setSubtasks([]);
     }
     setQuickSub(''); setPasteMode(false); setPasteText('');
-  }, [open, task]);
+  }, [open, task?.id]);
 
   if (!open) return null;
 
@@ -54,7 +55,7 @@ export default function TaskModal({ open, task, members, onClose, onSave, onDele
   const quickAdd = () => {
     const n = quickSub.trim();
     if (!n) return;
-    setSubtasks((prev) => [...prev, { name: n, status: 'รอ', owner, due: end }]);
+    setSubtasks((prev) => [...prev, { name: n, status: 'รอ', owner, start, due: end }]);
     setQuickSub('');
   };
 
@@ -62,7 +63,7 @@ export default function TaskModal({ open, task, members, onClose, onSave, onDele
     const lines = pasteText.split('\n').map((l) => l.trim()).filter(Boolean);
     setSubtasks((prev) => [
       ...prev,
-      ...lines.map((n) => ({ name: n, status: 'รอ', owner, due: end })),
+      ...lines.map((n) => ({ name: n, status: 'รอ', owner, start, due: end })),
     ]);
     setPasteText('');
     setPasteMode(false);
@@ -156,7 +157,14 @@ export default function TaskModal({ open, task, members, onClose, onSave, onDele
                         {members.map((m) => <option key={m.id} value={m.name}>{m.name}</option>)}
                       </select>
                       <input
+                        type="date" className="sub-due-input" value={s.start || ''}
+                        title="วันเริ่ม" placeholder="วันเริ่ม"
+                        onChange={(e) => updateSub(i, { start: e.target.value })}
+                      />
+                      <span className="sub-date-sep">→</span>
+                      <input
                         type="date" className="sub-due-input" value={s.due || ''}
+                        title="วันสิ้นสุด" placeholder="วันสิ้นสุด"
                         onChange={(e) => updateSub(i, { due: e.target.value })}
                       />
                       {isLate && (

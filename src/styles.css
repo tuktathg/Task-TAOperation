@@ -145,6 +145,7 @@
 
   /* column widths */
   .col-name  { width: 220px; min-width: 180px; }
+  .col-prio  { width: 76px; }
   .col-owner { width: 120px; }
   .col-status{ width: 130px; }
   .col-pct   { width: 80px; }
@@ -196,6 +197,15 @@
     padding: 6px 8px; font-size: 11px; color: var(--muted);
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
+  .cell-prio { padding: 6px 8px; }
+  .prio-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 9px; font-weight: 600; white-space: nowrap;
+    letter-spacing: .3px;
+  }
+  .prio-high   { background: var(--late-bg); color: var(--red); }
+  .prio-medium { background: var(--wait-bg); color: #8A6200; }
+  .prio-low    { background: var(--done-bg); color: var(--green); }
   .cell-status { padding: 6px 8px; }
   .status-badge {
     display: inline-block; padding: 3px 8px; border-radius: 10px;
@@ -235,6 +245,7 @@
   }
   .week-bar.done-layer { background: var(--blue2); border-radius: 3px 0 0 3px; }
   .week-bar.sub-bar { top: 11px; height: 12px; background: #7FB3E8; opacity: .75; }
+  .week-bar.sub-bar.sub-bar-late { background: var(--red); opacity: .8; }
 
   /* task row heights */
   .task-row td { height: 42px; }
@@ -330,7 +341,10 @@
   }
   .sub-due-input {
     font-size: 11px; padding: 3px 6px; border: 1px solid var(--border);
-    border-radius: 4px; background: var(--surface); width: 120px;
+    border-radius: 4px; background: var(--surface); width: 108px;
+  }
+  .sub-date-sep {
+    font-size: 11px; color: var(--muted); flex-shrink: 0;
   }
   .late-tag {
     font-size: 10px; font-weight: 600; color: var(--red);

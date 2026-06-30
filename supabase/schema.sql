@@ -2,6 +2,14 @@
 -- Team Timeline Planner — Supabase Schema
 -- Run this in: Supabase Dashboard → SQL Editor → New query
 -- ════════════════════════════════════════════════════════════════════
+--
+-- ⚠ ถ้าเคยรัน schema นี้ไปแล้วรอบหนึ่ง (มีตาราง tasks/subtasks อยู่แล้ว)
+-- ไม่ต้องรันไฟล์นี้ใหม่ทั้งหมด แค่รันคำสั่งนี้คำสั่งเดียวพอ:
+--
+--   alter table subtasks add column if not exists start_date date;
+--
+-- แล้วข้ามไปขั้นตอน deploy ต่อได้เลย
+-- ════════════════════════════════════════════════════════════════════
 
 -- ── Members table ───────────────────────────────────────────────────
 create table if not exists members (
@@ -30,6 +38,7 @@ create table if not exists subtasks (
   name        text not null,
   status      text not null default 'รอ' check (status in ('รอ','กำลังทำ','เสร็จ')),
   owner       text,
+  start_date  date,
   due_date    date,
   sort_order  integer default 0,
   created_at  timestamptz not null default now(),

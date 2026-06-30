@@ -72,6 +72,7 @@ export function useTasks() {
           name: s.name,
           status: s.status,
           owner: s.owner,
+          start: s.start_date,
           due: s.due_date,
         })),
     }));
@@ -126,6 +127,7 @@ export function useTasks() {
         name: s.name,
         status: s.status || 'รอ',
         owner: s.owner || null,
+        start_date: s.start || null,
         due_date: s.due || null,
         sort_order: i,
       }));

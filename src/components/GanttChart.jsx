@@ -44,6 +44,7 @@ export default function GanttChart({ tasks, onEditTask }) {
           <thead>
             <tr className="month-header">
               <th className="col-name" style={{ textAlign: 'left', padding: '6px 12px' }}>ชื่องาน / Task</th>
+              <th className="col-prio">Priority</th>
               <th className="col-owner">ผู้รับผิดชอบ</th>
               <th className="col-status">สถานะ</th>
               <th className="col-pct">คืบหน้า</th>
@@ -55,6 +56,7 @@ export default function GanttChart({ tasks, onEditTask }) {
             </tr>
             <tr>
               <th className="col-name"></th>
+              <th className="col-prio"></th>
               <th className="col-owner"></th>
               <th className="col-status"></th>
               <th className="col-pct"></th>
@@ -85,6 +87,11 @@ export default function GanttChart({ tasks, onEditTask }) {
                       <div className="cell-name" onClick={() => onEditTask(task.id)}>
                         <span className="task-icon">▸</span>{task.name}
                       </div>
+                    </td>
+                    <td className="cell-prio">
+                      <span className={`prio-badge prio-${(task.prio || 'Medium').toLowerCase()}`}>
+                        {task.prio || 'Medium'}
+                      </span>
                     </td>
                     <td className="cell-owner">{task.owner || '—'}</td>
                     <td className="cell-status">
@@ -123,9 +130,13 @@ export default function GanttChart({ tasks, onEditTask }) {
                   {(task.subtasks || []).map((sub, si) => {
                     const subOwner = sub.owner || task.owner || '—';
                     const subIsLate = sub.status !== 'เสร็จ' && sub.due && parseDate(sub.due) < today;
+                    const subStart = parseDate(sub.start) || tStart;
+                    const subEnd = parseDate(sub.due) || tEnd;
+                    const subPct = sub.status === 'เสร็จ' ? 100 : 0;
                     return (
                       <tr key={si} className={`task-row subtask-row${subIsLate ? ' sub-late' : ''}`}>
                         <td><div className="cell-name sub"><span className="sub-arrow">↳</span>{sub.name}</div></td>
+                        <td className="cell-prio"></td>
                         <td className="cell-owner" style={{ fontSize: '10px' }}>{subOwner}{subIsLate ? ' ⚠' : ''}</td>
                         <td className="cell-status">
                           <span className={`status-badge ${SUB_CLS[sub.status] || 's-sub-wait'}`} style={{ fontSize: '9px' }}>
@@ -136,11 +147,11 @@ export default function GanttChart({ tasks, onEditTask }) {
                         {weeks.map((w, i) => {
                           const hasToday = today >= w.mon && today <= w.sun;
                           const cellCls = 'week-cell' + (hasToday ? ' has-today' : '');
-                          const geo = weekBarGeometry(w, tStart, tEnd, pct);
+                          const geo = weekBarGeometry(w, subStart, subEnd, subPct);
                           return (
                             <td key={i} className={cellCls}>
                               <div className="week-bar-wrap">
-                                {geo && <div className="week-bar sub-bar" style={{ left: `${geo.leftPct.toFixed(1)}%`, width: `${geo.widthPct.toFixed(1)}%` }} />}
+                                {geo && <div className={`week-bar sub-bar${subIsLate ? ' sub-bar-late' : ''}`} style={{ left: `${geo.leftPct.toFixed(1)}%`, width: `${geo.widthPct.toFixed(1)}%` }} />}
                               </div>
                             </td>
                           );

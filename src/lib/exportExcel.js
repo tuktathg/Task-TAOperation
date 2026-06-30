@@ -35,6 +35,7 @@ export function exportToExcel(tasks) {
         'Subtask': s.name,
         'ผู้รับผิดชอบ': s.owner || t.owner || '',
         'สถานะ': s.status,
+        'วันเริ่ม': s.start || '',
         'วันกำหนดจบ': s.due || '',
         'ล่าช้า?': s.status !== 'เสร็จ' && s.due && new Date(s.due) < new Date()
           ? 'ใช่' : '',
@@ -43,7 +44,7 @@ export function exportToExcel(tasks) {
   });
   const wsSubs = XLSX.utils.json_to_sheet(subRows);
   wsSubs['!cols'] = [
-    { wch: 28 }, { wch: 28 }, { wch: 18 }, { wch: 12 }, { wch: 14 }, { wch: 8 },
+    { wch: 28 }, { wch: 28 }, { wch: 18 }, { wch: 12 }, { wch: 12 }, { wch: 14 }, { wch: 8 },
   ];
   XLSX.utils.book_append_sheet(wb, wsSubs, 'Subtasks');
 
