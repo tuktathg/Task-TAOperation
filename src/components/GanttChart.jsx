@@ -7,6 +7,19 @@ import {
 const SUB_CLS   = { 'เสร็จ':'s-sub-done', 'กำลังทำ':'s-sub-prog', 'รอ':'s-sub-wait' };
 const SUB_LABEL = { 'เสร็จ':'✓ เสร็จ', 'กำลังทำ':'⟳ กำลังทำ', 'รอ':'○ รอ' };
 
+const TH_MONTHS_SHORT = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+
+function formatDateRange(start, end) {
+  const s = parseDate(start);
+  const e = parseDate(end);
+  if (!s || !e) return '—';
+  const sameMonth = s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear();
+  if (sameMonth) {
+    return `${s.getDate()}-${e.getDate()} ${TH_MONTHS_SHORT[s.getMonth()]}`;
+  }
+  return `${s.getDate()} ${TH_MONTHS_SHORT[s.getMonth()]} - ${e.getDate()} ${TH_MONTHS_SHORT[e.getMonth()]}`;
+}
+
 export default function GanttChart({ tasks, onEditTask }) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -48,6 +61,7 @@ export default function GanttChart({ tasks, onEditTask }) {
               <th className="col-owner">ผู้รับผิดชอบ</th>
               <th className="col-status">สถานะ</th>
               <th className="col-pct">คืบหน้า</th>
+              <th className="col-dates">วันที่</th>
               {monthCols.map((mc, i) => (
                 <th key={i} colSpan={mc.span} style={{ textAlign: 'center', letterSpacing: '.3px' }}>
                   {mc.label}
@@ -60,6 +74,7 @@ export default function GanttChart({ tasks, onEditTask }) {
               <th className="col-owner"></th>
               <th className="col-status"></th>
               <th className="col-pct"></th>
+              <th className="col-dates"></th>
               {weeks.map((w, i) => {
                 const hasToday = today >= w.mon && today <= w.sun;
                 const wNum = getWeekNumber(w.mon);
@@ -106,6 +121,7 @@ export default function GanttChart({ tasks, onEditTask }) {
                         <span className="pct-label">{pct}%</span>
                       </div>
                     </td>
+                    <td className="cell-dates">{formatDateRange(task.start, task.end)}</td>
                     {weeks.map((w, i) => {
                       const hasToday = today >= w.mon && today <= w.sun;
                       const cellCls = 'week-cell' + (hasToday ? ' has-today' : '');
@@ -143,7 +159,7 @@ export default function GanttChart({ tasks, onEditTask }) {
                             {SUB_LABEL[sub.status] || sub.status}
                           </span>
                         </td>
-                        <td></td>
+                        <td className="cell-dates sub-dates">{formatDateRange(sub.start || task.start, sub.due || task.end)}</td>
                         {weeks.map((w, i) => {
                           const hasToday = today >= w.mon && today <= w.sun;
                           const cellCls = 'week-cell' + (hasToday ? ' has-today' : '');

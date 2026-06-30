@@ -149,6 +149,7 @@
   .col-owner { width: 120px; }
   .col-status{ width: 130px; }
   .col-pct   { width: 80px; }
+  .col-dates { width: 110px; }
   .col-day   { width: 28px; min-width: 28px; }
 
   .gantt-table th {
@@ -226,6 +227,11 @@
   .task-row.subtask-row.sub-late td { background: #FFF5F5; }
 
   .cell-pct { padding: 6px 8px; }
+  .cell-dates {
+    padding: 6px 8px; font-size: 11px; color: var(--text);
+    white-space: nowrap; font-family: 'IBM Plex Mono', monospace;
+  }
+  .cell-dates.sub-dates { font-size: 10px; color: var(--muted); }
   .pct-wrap { display: flex; align-items: center; gap: 6px; }
   .pct-bar-bg {
     flex: 1; height: 5px; background: var(--border);
