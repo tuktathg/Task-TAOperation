@@ -100,12 +100,12 @@ export default function App() {
     <>
       <header className="header">
         <div className="header-left">
-          <h1>📋 Team Timeline Planner</h1>
-          <span className="header-tag"><span className="sync-dot"></span>ซิงค์เรียลไทม์</span>
+          <h1> Team Timeline Planner</h1>
+          <span className="header-tag"><span className="sync-dot"></span>Real-time</span>
         </div>
         <div className="header-actions">
-          <button className="btn btn-ghost btn-sm" onClick={() => exportToExcel(tasks)}>📊 Export Excel</button>
-          <button className="btn btn-ghost btn-sm" onClick={() => setMemberModalOpen(true)}>👥 สมาชิก</button>
+          <button className="btn btn-ghost btn-sm" onClick={() => exportToExcel(tasks)}> Export Excel</button>
+          <button className="btn btn-ghost btn-sm" onClick={() => setMemberModalOpen(true)}> สมาชิก</button>
           <button className="btn btn-primary btn-sm" onClick={openAddTask}>+ เพิ่มงาน</button>
         </div>
       </header>
@@ -133,7 +133,7 @@ export default function App() {
           </select>
         </div>
 
-        <p className="section-title">ไทม์ไลน์ — Gantt Chart</p>
+        <p className="section-title">Timeline</p>
         <GanttChart tasks={filteredTasks} onEditTask={openEditTask} />
       </div>
 
