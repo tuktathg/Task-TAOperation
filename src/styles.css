@@ -149,7 +149,7 @@
   .col-owner { width: 120px; }
   .col-status{ width: 130px; }
   .col-pct   { width: 80px; }
-  .col-dates { width: 120px; border-right: 2px solid var(--navy); }
+  .col-dates { width: 90px; border-right: 2px solid var(--navy); }
   .col-day   { width: 28px; min-width: 28px; }
 
   .gantt-table th {
@@ -243,10 +243,12 @@
     height: 100%; box-sizing: border-box;
   }
   .cell-dates {
-    padding: 6px 10px; font-size: 11px; color: var(--text);
+    padding: 0 8px; font-size: 11px; color: var(--text);
     white-space: nowrap; font-family: 'IBM Plex Mono', monospace;
-    border-right: 1px solid var(--border);
-    display: flex; align-items: center; height: 100%; box-sizing: border-box;
+    border-right: 2px solid var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    height: 100%; box-sizing: border-box;
+    overflow: hidden;
   }
   .cell-dates.sub-dates { font-size: 10px; color: var(--muted); }
   .pct-wrap { display: flex; align-items: center; gap: 6px; width: 100%; }
