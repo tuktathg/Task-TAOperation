@@ -144,12 +144,12 @@
   .gantt-table { border-collapse: collapse; width: 100%; }
 
   /* column widths */
-  .col-name  { width: 240px; min-width: 200px; }
+  .col-name  { width: 220px; min-width: 180px; }
   .col-prio  { width: 76px; }
   .col-owner { width: 120px; }
   .col-status{ width: 130px; }
   .col-pct   { width: 80px; }
-  .col-dates { width: 90px; border-right: 2px solid var(--navy); }
+  .col-dates { width: 110px; }
   .col-day   { width: 28px; min-width: 28px; }
 
   .gantt-table th {
@@ -175,39 +175,39 @@
     border-right: 1px solid rgba(255,255,255,.1);
   }
 
-  /* ── Task rows ── */
+  /* task rows */
   .task-row td {
-    border-bottom: 1px solid var(--border);
-    vertical-align: middle; padding: 0;
+    padding: 0; border-bottom: 1px solid var(--border);
+    vertical-align: middle;
   }
   .task-row:hover td { background: var(--row-alt); }
   .task-row.subtask-row td { background: #F8FBFF; }
   .task-row.subtask-row:hover td { background: #EFF5FD; }
-  .task-row.subtask-row.sub-late td { background: #FFF5F5; }
 
   .cell-name {
-    padding: 9px 12px; font-size: 13px; font-weight: 500;
+    padding: 8px 12px; font-size: 13px; font-weight: 500;
     cursor: pointer; user-select: none;
     display: flex; align-items: center; gap: 6px;
   }
   .cell-name:hover { color: var(--blue); }
-  .cell-name.sub { padding: 7px 12px 7px 28px; font-size: 12px; font-weight: 400; color: var(--muted); }
-  .task-icon { font-size: 10px; opacity: .5; flex-shrink: 0; }
-  .sub-arrow { color: var(--blue); font-size: 11px; margin-left: 4px; flex-shrink: 0; }
+  .cell-name.sub { padding-left: 28px; font-size: 12px; font-weight: 400; color: var(--muted); }
+  .task-icon { font-size: 10px; opacity: .5; }
+  .sub-arrow { color: var(--blue); font-size: 11px; margin-left: 4px; }
 
-  .cell-owner { padding: 9px 8px; font-size: 11px; color: var(--muted); white-space: nowrap; }
-  .cell-name.sub ~ .cell-owner { padding: 7px 8px; }
-
-  .cell-prio  { padding: 9px 8px; }
+  .cell-owner {
+    padding: 6px 8px; font-size: 11px; color: var(--muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .cell-prio { padding: 6px 8px; }
   .prio-badge {
     display: inline-block; padding: 2px 8px; border-radius: 10px;
-    font-size: 9px; font-weight: 600; white-space: nowrap; letter-spacing: .3px;
+    font-size: 9px; font-weight: 600; white-space: nowrap;
+    letter-spacing: .3px;
   }
   .prio-high   { background: var(--late-bg); color: var(--red); }
   .prio-medium { background: var(--wait-bg); color: #8A6200; }
   .prio-low    { background: var(--done-bg); color: var(--green); }
-
-  .cell-status { padding: 9px 8px; }
+  .cell-status { padding: 6px 8px; }
   .status-badge {
     display: inline-block; padding: 3px 8px; border-radius: 10px;
     font-size: 10px; font-weight: 500; white-space: nowrap;
@@ -219,34 +219,43 @@
   .s-sub-done { background: var(--done-bg); color: var(--green); }
   .s-sub-prog { background: var(--prog-bg); color: var(--blue2); }
   .s-sub-wait { background: #F5F5F5; color: var(--muted); }
-  .late-owner-tag { display: block; font-size: 9px; color: var(--red); font-weight: 500; margin-top: 2px; }
 
-  .cell-pct { padding: 9px 8px; }
+  .late-owner-tag {
+    font-size: 9px; color: var(--red); margin-top: 2px;
+    font-weight: 500; white-space: nowrap;
+  }
+  .task-row.subtask-row.sub-late td { background: #FFF5F5; }
+
+  .cell-pct { padding: 6px 8px; }
+  .cell-dates {
+    padding: 6px 8px; font-size: 11px; color: var(--text);
+    white-space: nowrap; font-family: 'IBM Plex Mono', monospace;
+  }
+  .cell-dates.sub-dates { font-size: 10px; color: var(--muted); }
   .pct-wrap { display: flex; align-items: center; gap: 6px; }
-  .pct-bar-bg { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .pct-bar-bg {
+    flex: 1; height: 5px; background: var(--border);
+    border-radius: 3px; overflow: hidden;
+  }
   .pct-bar-fill { height: 100%; border-radius: 3px; background: var(--teal); }
   .pct-label { font-size: 10px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; min-width: 26px; }
 
-  .cell-dates {
-    padding: 9px 6px; font-size: 11px; color: var(--muted);
-    white-space: nowrap; font-family: 'IBM Plex Mono', monospace;
-    border-right: 2px solid var(--navy); text-align: center;
-  }
-
-  /* ── Gantt week cells ── */
+  /* gantt week cells */
   .col-week { width: 80px; min-width: 72px; }
-  .week-cell { padding: 0; border-right: 1px solid #E8ECF2; position: relative; }
+  .week-cell { padding: 0; border-right: 1px solid #E8ECF2; position: relative; vertical-align: middle; }
   .week-cell.has-today { background: #FFF5F5; border-left: 2px solid var(--today); }
-  /* bar wrapper fills the td, uses table cell's natural height */
-  .week-bar-wrap { width: 100%; height: 44px; position: relative; overflow: hidden; }
-  .subtask-row .week-bar-wrap { height: 36px; }
+  .week-bar-wrap { width: 100%; height: 34px; position: relative; overflow: hidden; }
   .week-bar {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    height: 20px; background: var(--blue); border-radius: 3px;
+    position: absolute; top: 7px; height: 20px;
+    background: var(--blue); border-radius: 3px;
   }
   .week-bar.done-layer { background: var(--blue2); border-radius: 3px 0 0 3px; }
-  .week-bar.sub-bar    { height: 12px; background: #7FB3E8; opacity: .75; }
+  .week-bar.sub-bar { top: 11px; height: 12px; background: #7FB3E8; opacity: .75; }
   .week-bar.sub-bar.sub-bar-late { background: var(--red); opacity: .8; }
+
+  /* task row heights */
+  .task-row td { height: 42px; }
+  .task-row.subtask-row td { height: 34px; }
 
   /* ── Modal ── */
   .overlay {

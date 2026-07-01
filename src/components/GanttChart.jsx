@@ -7,15 +7,17 @@ import {
 const SUB_CLS   = { 'เสร็จ':'s-sub-done', 'กำลังทำ':'s-sub-prog', 'รอ':'s-sub-wait' };
 const SUB_LABEL = { 'เสร็จ':'✓ เสร็จ', 'กำลังทำ':'⟳ กำลังทำ', 'รอ':'○ รอ' };
 
+const TH_MONTHS_SHORT = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+
 function formatDateRange(start, end) {
   const s = parseDate(start);
   const e = parseDate(end);
   if (!s || !e) return '—';
   const sameMonth = s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear();
   if (sameMonth) {
-    return `${s.getDate()}/${s.getMonth()+1} - ${e.getDate()}/${e.getMonth()+1}`;
+    return `${s.getDate()}-${e.getDate()} ${TH_MONTHS_SHORT[s.getMonth()]}`;
   }
-  return `${s.getDate()}/${s.getMonth()+1} - ${e.getDate()}/${e.getMonth()+1}`;
+  return `${s.getDate()} ${TH_MONTHS_SHORT[s.getMonth()]} - ${e.getDate()} ${TH_MONTHS_SHORT[e.getMonth()]}`;
 }
 
 export default function GanttChart({ tasks, onEditTask }) {
