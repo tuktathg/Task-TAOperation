@@ -178,47 +178,49 @@
   /* task rows */
   .task-row td {
     padding: 0; border-bottom: 1px solid var(--border);
-    vertical-align: middle; height: 1px;
+    vertical-align: middle;
   }
   .task-row:hover td { background: var(--row-alt); }
   .task-row.subtask-row td { background: #F8FBFF; }
   .task-row.subtask-row:hover td { background: #EFF5FD; }
+  .task-row.subtask-row.sub-late td { background: #FFF5F5; }
+
+  /* fixed row heights via td */
+  .task-row:not(.subtask-row) td { height: 44px; }
+  .task-row.subtask-row td { height: 36px; }
 
   .cell-name {
-    padding: 10px 12px; font-size: 13px; font-weight: 500;
+    padding: 8px 12px; font-size: 13px; font-weight: 500;
     cursor: pointer; user-select: none;
     display: flex; align-items: center; gap: 6px;
-    height: 100%; min-height: 42px; box-sizing: border-box;
+    height: 100%; box-sizing: border-box; overflow: hidden;
   }
   .cell-name:hover { color: var(--blue); }
-  .cell-name.sub {
-    padding-left: 28px; font-size: 12px; font-weight: 400;
-    color: var(--muted); min-height: 34px;
-  }
+  .cell-name.sub { padding-left: 28px; font-size: 12px; font-weight: 400; color: var(--muted); }
   .task-icon { font-size: 10px; opacity: .5; flex-shrink: 0; }
   .sub-arrow { color: var(--blue); font-size: 11px; margin-left: 4px; flex-shrink: 0; }
 
   .cell-owner {
-    padding: 6px 8px; font-size: 11px; color: var(--muted);
+    padding: 0 8px; font-size: 11px; color: var(--muted);
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    display: flex; align-items: center; height: 100%; box-sizing: border-box;
+    height: 100%; display: flex; align-items: center; box-sizing: border-box;
   }
   .cell-prio {
-    padding: 6px 8px; display: flex; align-items: center;
-    height: 100%; box-sizing: border-box;
+    padding: 0 8px; height: 100%;
+    display: flex; align-items: center; box-sizing: border-box;
   }
   .prio-badge {
     display: inline-block; padding: 2px 8px; border-radius: 10px;
-    font-size: 9px; font-weight: 600; white-space: nowrap;
-    letter-spacing: .3px;
+    font-size: 9px; font-weight: 600; white-space: nowrap; letter-spacing: .3px;
   }
   .prio-high   { background: var(--late-bg); color: var(--red); }
   .prio-medium { background: var(--wait-bg); color: #8A6200; }
   .prio-low    { background: var(--done-bg); color: var(--green); }
+
   .cell-status {
-    padding: 6px 8px; display: flex; flex-direction: column;
-    align-items: flex-start; justify-content: center; gap: 2px;
-    height: 100%; box-sizing: border-box;
+    padding: 0 8px; height: 100%;
+    display: flex; flex-direction: column; align-items: flex-start;
+    justify-content: center; gap: 2px; box-sizing: border-box;
   }
   .status-badge {
     display: inline-block; padding: 3px 8px; border-radius: 10px;
@@ -232,30 +234,23 @@
   .s-sub-prog { background: var(--prog-bg); color: var(--blue2); }
   .s-sub-wait { background: #F5F5F5; color: var(--muted); }
 
-  .late-owner-tag {
-    font-size: 9px; color: var(--red); margin-top: 2px;
-    font-weight: 500; white-space: nowrap; width: 100%;
-  }
-  .task-row.subtask-row.sub-late td { background: #FFF5F5; }
+  .late-owner-tag { font-size: 9px; color: var(--red); font-weight: 500; white-space: nowrap; }
 
   .cell-pct {
-    padding: 6px 8px; display: flex; align-items: center;
-    height: 100%; box-sizing: border-box;
+    padding: 0 8px; height: 100%;
+    display: flex; align-items: center; box-sizing: border-box;
   }
   .cell-dates {
-    padding: 0 8px; font-size: 11px; color: var(--text);
+    padding: 0 6px; font-size: 11px; color: var(--text);
     white-space: nowrap; font-family: 'IBM Plex Mono', monospace;
     border-right: 2px solid var(--navy);
-    display: flex; align-items: center; justify-content: center;
-    height: 100%; box-sizing: border-box;
-    overflow: hidden;
+    height: 100%; display: flex; align-items: center;
+    justify-content: center; box-sizing: border-box; overflow: hidden;
   }
   .cell-dates.sub-dates { font-size: 10px; color: var(--muted); }
+
   .pct-wrap { display: flex; align-items: center; gap: 6px; width: 100%; }
-  .pct-bar-bg {
-    flex: 1; height: 5px; background: var(--border);
-    border-radius: 3px; overflow: hidden;
-  }
+  .pct-bar-bg { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
   .pct-bar-fill { height: 100%; border-radius: 3px; background: var(--teal); }
   .pct-label { font-size: 10px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; min-width: 26px; }
 
@@ -263,14 +258,13 @@
   .col-week { width: 80px; min-width: 72px; }
   .week-cell { padding: 0; border-right: 1px solid #E8ECF2; position: relative; }
   .week-cell.has-today { background: #FFF5F5; border-left: 2px solid var(--today); }
-  .week-bar-wrap { width: 100%; height: 100%; min-height: 42px; position: relative; overflow: hidden; display: block; box-sizing: border-box; }
-  .subtask-row .week-bar-wrap { min-height: 34px; }
+  .week-bar-wrap { width: 100%; height: 100%; position: relative; overflow: hidden; }
   .week-bar {
     position: absolute; top: 50%; transform: translateY(-50%);
     height: 20px; background: var(--blue); border-radius: 3px;
   }
   .week-bar.done-layer { background: var(--blue2); border-radius: 3px 0 0 3px; }
-  .week-bar.sub-bar { height: 12px; background: #7FB3E8; opacity: .75; }
+  .week-bar.sub-bar    { height: 12px; background: #7FB3E8; opacity: .75; }
   .week-bar.sub-bar.sub-bar-late { background: var(--red); opacity: .8; }
 
   /* ── Modal ── */
