@@ -178,7 +178,7 @@
   /* task rows */
   .task-row td {
     padding: 0; border-bottom: 1px solid var(--border);
-    vertical-align: middle; height: auto;
+    vertical-align: middle; height: 1px;
   }
   .task-row:hover td { background: var(--row-alt); }
   .task-row.subtask-row td { background: #F8FBFF; }
@@ -188,7 +188,7 @@
     padding: 10px 12px; font-size: 13px; font-weight: 500;
     cursor: pointer; user-select: none;
     display: flex; align-items: center; gap: 6px;
-    min-height: 42px; box-sizing: border-box;
+    height: 100%; min-height: 42px; box-sizing: border-box;
   }
   .cell-name:hover { color: var(--blue); }
   .cell-name.sub {
@@ -201,8 +201,12 @@
   .cell-owner {
     padding: 6px 8px; font-size: 11px; color: var(--muted);
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    display: flex; align-items: center; height: 100%; box-sizing: border-box;
   }
-  .cell-prio { padding: 6px 8px; }
+  .cell-prio {
+    padding: 6px 8px; display: flex; align-items: center;
+    height: 100%; box-sizing: border-box;
+  }
   .prio-badge {
     display: inline-block; padding: 2px 8px; border-radius: 10px;
     font-size: 9px; font-weight: 600; white-space: nowrap;
@@ -211,7 +215,11 @@
   .prio-high   { background: var(--late-bg); color: var(--red); }
   .prio-medium { background: var(--wait-bg); color: #8A6200; }
   .prio-low    { background: var(--done-bg); color: var(--green); }
-  .cell-status { padding: 6px 8px; }
+  .cell-status {
+    padding: 6px 8px; display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: center; gap: 2px;
+    height: 100%; box-sizing: border-box;
+  }
   .status-badge {
     display: inline-block; padding: 3px 8px; border-radius: 10px;
     font-size: 10px; font-weight: 500; white-space: nowrap;
@@ -226,18 +234,22 @@
 
   .late-owner-tag {
     font-size: 9px; color: var(--red); margin-top: 2px;
-    font-weight: 500; white-space: nowrap;
+    font-weight: 500; white-space: nowrap; width: 100%;
   }
   .task-row.subtask-row.sub-late td { background: #FFF5F5; }
 
-  .cell-pct { padding: 6px 8px; }
+  .cell-pct {
+    padding: 6px 8px; display: flex; align-items: center;
+    height: 100%; box-sizing: border-box;
+  }
   .cell-dates {
     padding: 6px 10px; font-size: 11px; color: var(--text);
     white-space: nowrap; font-family: 'IBM Plex Mono', monospace;
     border-right: 1px solid var(--border);
+    display: flex; align-items: center; height: 100%; box-sizing: border-box;
   }
   .cell-dates.sub-dates { font-size: 10px; color: var(--muted); }
-  .pct-wrap { display: flex; align-items: center; gap: 6px; }
+  .pct-wrap { display: flex; align-items: center; gap: 6px; width: 100%; }
   .pct-bar-bg {
     flex: 1; height: 5px; background: var(--border);
     border-radius: 3px; overflow: hidden;
@@ -247,9 +259,10 @@
 
   /* gantt week cells */
   .col-week { width: 80px; min-width: 72px; }
-  .week-cell { padding: 0; border-right: 1px solid #E8ECF2; position: relative; vertical-align: middle; height: inherit; }
+  .week-cell { padding: 0; border-right: 1px solid #E8ECF2; position: relative; }
   .week-cell.has-today { background: #FFF5F5; border-left: 2px solid var(--today); }
-  .week-bar-wrap { width: 100%; height: 100%; min-height: 42px; position: relative; overflow: hidden; }
+  .week-bar-wrap { width: 100%; height: 100%; min-height: 42px; position: relative; overflow: hidden; display: block; box-sizing: border-box; }
+  .subtask-row .week-bar-wrap { min-height: 34px; }
   .week-bar {
     position: absolute; top: 50%; transform: translateY(-50%);
     height: 20px; background: var(--blue); border-radius: 3px;
@@ -257,11 +270,6 @@
   .week-bar.done-layer { background: var(--blue2); border-radius: 3px 0 0 3px; }
   .week-bar.sub-bar { height: 12px; background: #7FB3E8; opacity: .75; }
   .week-bar.sub-bar.sub-bar-late { background: var(--red); opacity: .8; }
-
-  /* task row min-heights (rows grow with content, no longer fixed) */
-  .task-row td { min-height: 42px; }
-  .task-row.subtask-row td { min-height: 34px; }
-  .task-row.subtask-row .week-bar-wrap { min-height: 34px; }
 
   /* ── Modal ── */
   .overlay {
